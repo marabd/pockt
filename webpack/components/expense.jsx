@@ -34,7 +34,7 @@ class Expense extends React.Component {
 
     $.ajax({
       url: `/api/expense/${this.state.expense.id}`,
-        type: 'PUT',
+        type: 'POST',
         data: { expense: { name, est_amount, act_amount, paid } },
         dataType: 'JSON'
     }).done( expense => {
@@ -77,10 +77,10 @@ class Expense extends React.Component {
                 <span className='card-title white-text'>{expense.name}</span>  
                 <div>
                   <label className='white-text'>Estimated Amount:</label>
-                  <p className='white-text'>{expense.est_amount}</p>
+                  <p className='white-text'>${expense.est_amount}</p>
 
                   <label className='white-text'>Actual Amount:</label>
-                  <p className='white-text'>{expense.act_amount}</p>
+                  <p className='white-text'>${expense.act_amount}</p>
 
                   <label className='white-text'>Paid:</label>
                   <p className='white-text'>{expense.paid}</p>
@@ -108,7 +108,7 @@ class Expense extends React.Component {
               <form onSubmit={this.handleEdit.bind(this)} >
                 <input ref='name'type='text' placeholder='Name' defaultValue={this.state.expense.name} />
                 <input ref='est_amount'type='text' placeholder='Estimated Amount' defaultValue={this.state.expense.est_amount} />
-                <input ref='act_amount'type='text' placeholder='Actualy Amount' defaultValue={this.state.expense.act_amount} />
+                <input ref='act_amount'type='text' placeholder='Actual Amount' defaultValue={this.state.expense.act_amount} />
                 <input ref='paid'type='text' placeholder='Paid' defaultValue={this.state.expense.paid} />
                 <input type='Submit' defaultValue='Update Expense' className='btn' />
                 <button type='button' onClick={this.toggleEdit} className='btn grey'>Cancel</button>
