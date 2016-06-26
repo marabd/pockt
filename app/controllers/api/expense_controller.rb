@@ -26,6 +26,7 @@ class Api::ExpenseController < ApplicationController
   def expense_params
     params.require(:expense).permit(:name, :est_amount, :act_amount, :paid)
   end
+  
   def expense
     @expense = Expense.find_by(id: params[:id])
   end

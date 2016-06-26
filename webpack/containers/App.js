@@ -3,11 +3,13 @@ import Expense from '../components/Expense';
 import Income from '../components/Income';
 
 const App = ({ children }) => (
-  <div>
+  <div className='container'>
     <h3 className='center'>Pockts</h3>
     { children }
-    <Expense/>
-    <Income/>
+    	<div className='row'>
+    		<Expense/>
+    		<Income/>
+    	</div>
   </div>
 )
 

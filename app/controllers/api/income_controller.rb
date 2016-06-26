@@ -6,8 +6,6 @@ class Api::IncomeController < ApplicationController
 	end
 
 	def show
-		# find - throws an exception if it can't find it
-		# find_by - returns nil if it can't find it
 		render json: @income
 	end
 
