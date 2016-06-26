@@ -9,6 +9,19 @@ class Api::IncomeController < ApplicationController
 		render json: @income
 	end
 
+	def new
+
+	end
+
+	def create
+		@income = Income.create(income_params)
+		if @income.save
+			render json: @income
+		else
+			render json: {errors: @income.errors.full_messages}
+		end
+	end
+
 	def update
 		if @income.update(income_params)
 			render json: @income.reload

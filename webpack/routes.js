@@ -8,7 +8,10 @@ import Expense from './components/Expense';
 export default (
   <Route>
     <Route path="/" component={App}>
-    </Route>
-    <Route path="*" status={404} component={NoMatch}/>
+    	<IndexRoute component={Income} />
+    	<IndexRoute component={Expense} />
+  	</Route>
+    
+  	<Route path="*" status={404} component={NoMatch}/>
   </Route>
 )

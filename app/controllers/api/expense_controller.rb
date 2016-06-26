@@ -9,6 +9,19 @@ class Api::ExpenseController < ApplicationController
     render json: @expense
   end
 
+  def new
+
+  end
+  
+  def create
+    @expense = Expense.create(expense_params)
+    if @expense.save
+      render json: @expense
+    else
+      render json: {errors: @expense.errors.full_messages}
+    end
+  end
+
   def destroy
     @expense.destroy
     render json: true

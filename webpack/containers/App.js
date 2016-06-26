@@ -5,9 +5,8 @@ import Income from '../components/Income';
 const App = ({ children }) => (
   <div className='container'>
     <h3 className='center'>Pockts</h3>
-    { children }
     	<div className='row'>
-    		<Expense/>
+    	{ children }
     		<Income/>
     	</div>
   </div>
