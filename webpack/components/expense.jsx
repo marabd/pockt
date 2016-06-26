@@ -10,7 +10,7 @@ class Expense extends React.Component {
 
   componentWillMount() {
     $.ajax({
-      url: `/api/expense/${this.props.params.id}`,
+      url: '/api/expense',
       type: 'GET',
       dataType: 'JSON'
     }).done( expense => {
@@ -27,14 +27,14 @@ class Expense extends React.Component {
   handleEdit(e) {
     e.preventDefault();
     let name = this.refs.name.value;
-    let description = this.refs.description.value;
-    let style = this.refs.style.value;
-    let alcohol_content = this.refs.alcoholContent.value;
+    let est_amount = this.refs.estAmount.value;
+    let act_amount = this.refs.actAmount.value;
+    let paid = this.refs.paid.value;
 
     $.ajax({
       url: `/api/expense/${this.state.expense.id}`,
       type: 'PUT',
-      data: { expense: { name, description, style, alcohol_content } },
+      data: { expense: { name, est_amount, act_amount, paid } },
       dataType: 'JSON'
     }).done( expense => {
       this.setState({ expense, editView: false });
@@ -50,9 +50,9 @@ class Expense extends React.Component {
           <h3>Edit Beer: {this.state.expense.name}</h3>
           <form onSubmit={this.handleEdit.bind(this)} >
             <input ref='name'type='text' placeholder='Name' defaultValue={this.state.expense.name} />
-            <input ref='description'type='text' placeholder='Description' defaultValue={this.state.expense.description} />
-            <input ref='style'type='text' placeholder='Style' defaultValue={this.state.expense.style} />
-            <input ref='alcoholContent'type='text' placeholder='Alcohol Content' defaultValue={this.state.expense.alcohol_content} />
+            <input ref='est_amount'type='text' placeholder='Estimated Amount' defaultValue={this.state.expense.est_amount} />
+            <input ref='act_amount'type='text' placeholder='Actualy Amount' defaultValue={this.state.expense.act_amount} />
+            <input ref='paid'type='text' placeholder='Paid' defaultValue={this.state.expense.paid} />
             <input type='Submit' defaultValue='Update Beer' className='btn' />
             <button type='button' onClick={this.toggleEdit} className='btn grey'>Cancel</button>
           </form>
@@ -67,19 +67,19 @@ class Expense extends React.Component {
                 <span className="card-title">{this.state.expense.name}</span>
 
                 <div>
-                  <label>Style:</label>
-                  <p>{this.state.expense.style}</p>
+                  <label>Estimated Amount:</label>
+                  <p>{this.state.expense.est_amount}</p>
 
-                  <label>Description:</label>
-                  <p>{this.state.expense.description}</p>
+                  <label>Actual Amount:</label>
+                  <p>{this.state.expense.act_amount}</p>
 
-                  <label>Alcohol Content:</label>
-                  <p>{this.state.expense.alcohol_content}</p>
+                  <label>Paid:</label>
+                  <p>{this.state.expense.paid}</p>
                 </div>
 
               </div>
               <div className="card-action">
-                <Link to='/'>All Beers</Link>
+                <Link to='/'>All Expenses</Link>
                 <button className='btn' onClick={this.toggleEdit}>Edit</button>
               </div>
             </div>
@@ -88,7 +88,7 @@ class Expense extends React.Component {
       } else {
         return(
           <div className='row'>
-            <h3 className='center'>Beer Not Loaded...</h3>
+            <h3 className='center'>Expense Not Loaded...</h3>
           </div>
         )
       }
@@ -96,4 +96,4 @@ class Expense extends React.Component {
   }
 }
 
-export default BeerCard;
+export default Expense;
