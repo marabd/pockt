@@ -67,6 +67,37 @@ class Expense extends React.Component {
     });
   }
 
+  displayCards() {
+    return this.state.expense.map( expense => {
+      return(
+        <div key={`expense-${expense.id}`}>
+          <div className='col s12 m6'>
+            <div className='card medium light-green darken-3'>
+              <div className='card-content white-text'>
+                <span className='card-title white-text'>{expense.name}</span>  
+                <div>
+                  <label className='white-text'>Estimated Amount:</label>
+                  <p className='white-text'>{expense.est_amount}</p>
+
+                  <label className='white-text'>Actual Amount:</label>
+                  <p className='white-text'>{expense.act_amount}</p>
+
+                  <label className='white-text'>Paid:</label>
+                  <p className='white-text'>{expense.paid}</p>
+                </div>
+                <div className='card-action'>
+                  <Link to='/' className='btn'>Budget</Link>
+                  <button className='btn' onClick={this.toggleEdit}>Edit</button>
+                  <button className='btn'>Add Expense</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    });
+  }
+
   render() {
     if(this.state.editView) {
       return(
@@ -89,29 +120,8 @@ class Expense extends React.Component {
     } else {
       if(this.state.expense) {
         return(
-          <div className="col s12 m6">
-            <div className="card medium light-green darken-3">
-              <div className="card-content">
-                <span className="card-title">{this.state.expense.name}</span>
-
-                <div>
-                  <label className='white-text'>Estimated Amount:</label>
-                  <p className='white-text'>{this.state.expense.est_amount}</p>
-
-                  <label className='white-text'>Actual Amount:</label>
-                  <p className='white-text'>{this.state.expense.act_amount}</p>
-
-                  <label className='white-text'>Paid:</label>
-                  <p className='white-text'>{this.state.expense.paid}</p>
-                </div>
-
-              </div>
-              <div className="card-action">
-                <Link to='/' className='btn'>Budget</Link>
-                <button className='btn' onClick={this.toggleEdit}>Edit</button>
-                <button className='btn'>Add Expense</button>
-              </div>
-            </div>
+          <div className='row'>
+            {this.displayCards.bind(this)()}
           </div>
         )
       } else {
