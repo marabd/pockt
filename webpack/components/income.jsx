@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 class Income extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { income: null, editView: false, addView: false };
+		this.state = { income: [], editView: false, addView: false };
 		this.toggleAdd = this.toggleAdd.bind(this);
 		this.toggleEdit = this.toggleEdit.bind(this);
 	}
@@ -63,6 +63,31 @@ class Income extends React.Component {
 		});
 	}
 
+	displayCards() {
+		return this.state.income.map( income => {
+			return(
+				<div key={`income-${income.id}`}>
+					<div className='col s12 m6'>
+						<div className='card medium light-green darken-3'>
+							<div className='card-content white-text'>
+								<span className='card-title white-text'>{income.name}</span>	
+								<div>
+									<label className='white-text'>Amount:</label>
+									<p className='white-text'>{income.amount}</p>
+								</div>
+								<div className='card-action'>
+									<Link to='/' className='btn'>Budget</Link>
+									<button className='btn' onClick={this.toggleEdit}>Edit</button>
+									<button className='btn'>Add Income</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			)
+		});
+	}
+
 	render() {
 		if(this.state.editView) {
 			return(
@@ -79,26 +104,12 @@ class Income extends React.Component {
 						</div>
 					</div>
 				</div>
-			);
+			)
 		} else {
 			if(this.state.income) {
 				return(
-					<div className='col s12 m6'>
-						<div className='card medium light-green darken-3'>
-							<div className='card-content white-text'>
-								<span className='card-title white-text'>{this.state.income.name}</span>
-
-								<div>
-									<label className='white-text'>Amount:</label>
-									<p className='white-text'>{this.state.income.amount}</p>
-								</div>
-								<div className='card-action'>
-									<Link to='/' className='btn'>Budget</Link>
-									<button className='btn' onClick={this.toggleEdit}>Edit</button>
-									<button className='btn'>Add Income</button>
-								</div>
-							</div>
-						</div>
+					<div className='row'>
+						{this.displayCards.bind(this)()}
 					</div>
 				)
 			} else {
