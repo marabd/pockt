@@ -34,9 +34,9 @@ class Expense extends React.Component {
 
     $.ajax({
       url: `/api/expense/${this.state.expense.id}`,
-        type: 'POST',
-        data: { expense: { name, est_amount, act_amount, paid } },
-        dataType: 'JSON'
+      type: 'POST',
+      data: { expense: { name, est_amount, act_amount, paid } },
+      dataType: 'JSON'
     }).done( expense => {
       this.setState({ expense, editView: false });
     }).fail( data => {
@@ -71,27 +71,32 @@ class Expense extends React.Component {
     return this.state.expense.map( expense => {
       return(
         <div key={`expense-${expense.id}`}>
-          <div className='col s12 m6'>
-            <div className='card medium light-green darken-3'>
-              <div className='card-content white-text'>
-                <span className='card-title white-text'>{expense.name}</span>  
-                <div>
-                  <label className='white-text'>Estimated Amount:</label>
-                  <p className='white-text'>${expense.est_amount}</p>
-
-                  <label className='white-text'>Actual Amount:</label>
-                  <p className='white-text'>${expense.act_amount}</p>
-
-                  <label className='white-text'>Paid:</label>
-                  <p className='white-text'>{expense.paid}</p>
-                </div>
-                <div className='card-action'>
-                  <Link to='/' className='btn'>Budget</Link>
-                  <button className='btn' onClick={this.toggleEdit}>Edit</button>
-                  <button className='btn'>Add Expense</button>
-                </div>
-              </div>
-            </div>
+          <div className='row valign-wrapper' >
+            <table>
+              <thead>
+              <tr>
+                <th data-field="id">Name</th>
+                <th data-field="name">Estimated Amount</th>
+                <th data-field="price">Actual amount</th>
+                <th data-field="paid">Paid</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr>
+                  <td>{expense.name}</td>
+                  <td>${expense.est_amount}.00</td>
+                  <td>${expense.act_amount}.00</td>
+                  <td>
+                    <form action="#">
+                      <p>
+                        <input type="checkbox" id="paid" />
+                        <label for="paid"></label>
+                      </p>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       )
@@ -121,7 +126,19 @@ class Expense extends React.Component {
       if(this.state.expense) {
         return(
           <div className='row'>
-            {this.displayCards.bind(this)()}
+            <div className='col s12 m6'>
+              <div className='card light-green darken-3'>
+                <div className='card-content white-text'>
+                  <h4 className='center'>Expenses</h4>
+                  <span>{this.displayCards.bind(this)()}</span>
+                  <div className='card-action'>
+                    <Link to='/' className='btn'>Budget</Link>
+                    <button className='btn' onClick={this.toggleEdit}>Edit</button>
+                    <button className='btn'>Add Income</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )
       } else {
