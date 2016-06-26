@@ -10,15 +10,15 @@ class Income extends React.Component {
 	}
 
 	componentWillMount() {
-	 $.ajax({
-	 	url: '/api/income',
-	 	type: 'GET',
-	 	dataType: 'JSON'
-	 }).done( income => {
-	 	this.setState({ income });
-	 }).fail( data => {
-	 	console.log(data);
-	 });
+		$.ajax({
+			url: '/api/income',
+			type: 'GET',
+			dataType: 'JSON'
+		}).done( income => {
+			this.setState({ income });
+		}).fail( data => {
+			console.log(data);
+		});
 	}
 
 	toggleAdd() {
@@ -32,9 +32,9 @@ class Income extends React.Component {
 
 		$.ajax({
 			url: `/api/income/${this.state.income.id}`,
-				type: 'PUT',
-				data: { income: { name, amount } },
-				dataType: 'JSON'
+			type: 'PUT',
+			data: { income: { name, amount } },
+			dataType: 'JSON'
 		}).done( income => {
 			this.setState({ income, editView: false });
 		}).fail( data => {
@@ -53,9 +53,9 @@ class Income extends React.Component {
 
 		$.ajax({
 			url: `/api/income/${this.state.income.id}`,
-				type: 'PUT',
-				data: { income: { name, amount } },
-				dataType: 'JSON'
+			type: 'PUT',
+			data: { income: { name, amount } },
+			dataType: 'JSON'
 		}).done( income => {
 			this.setState({ income, editView: false });
 		}).fail( data => {
@@ -67,20 +67,11 @@ class Income extends React.Component {
 		return this.state.income.map( income => {
 			return(
 				<div key={`income-${income.id}`}>
-					<div className='col s12 m6'>
-						<div className='card medium light-green darken-3'>
-							<div className='card-content white-text'>
-								<span className='card-title white-text'>{income.name}</span>	
-								<div>
-									<label className='white-text'>Amount:</label>
-									<p className='white-text'>{income.amount}</p>
-								</div>
-								<div className='card-action'>
-									<Link to='/' className='btn'>Budget</Link>
-									<button className='btn' onClick={this.toggleEdit}>Edit</button>
-									<button className='btn'>Add Income</button>
-								</div>
-							</div>
+					<div className='row' >
+						<div className= 'col m8'>
+							{income.name}
+						</div>
+						<div className= 'col m4 right-align'>Amount: ${income.amount}.00
 						</div>
 					</div>
 				</div>
@@ -92,8 +83,8 @@ class Income extends React.Component {
 		if(this.state.editView) {
 			return(
 				<div className="col s12 m6">
-          <div className="card light-green darken-3">
-            <div className="card-content">
+					<div className="card light-green darken-3">
+						<div className="card-content">
 							<h5>Edit Income: {this.state.income.name}</h5>
 							<form onSubmit={this.handleEdit.bind(this)}>
 								<input ref='name' type='text' placeholder='Name' defaultValue={this.state.income.name} />
@@ -109,7 +100,18 @@ class Income extends React.Component {
 			if(this.state.income) {
 				return(
 					<div className='row'>
-						{this.displayCards.bind(this)()}
+						<div className='col s12 m6'>
+							<div className='card light-green darken-3'>
+								<div className='card-content white-text'>
+									<span>{this.displayCards.bind(this)()}</span>
+									<div className='card-action'>
+										<Link to='/' className='btn'>Budget</Link>
+										<button className='btn' onClick={this.toggleEdit}>Edit</button>
+										<button className='btn'>Add Income</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				)
 			} else {
