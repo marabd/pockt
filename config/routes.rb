@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'income/index'
+
+  get 'income/show'
+
+  get 'income/edit'
+
+  get 'income/create'
+
   root 'home#index'
 
   namespace :api do
