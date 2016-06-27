@@ -73,14 +73,6 @@ class Expense extends React.Component {
         <div key={`expense-${expense.id}`}>
           <div className='row valign-wrapper' >
             <table>
-              <thead>
-              <tr>
-                <th data-field="id">Name</th>
-                <th data-field="name">Estimated Amount</th>
-                <th data-field="price">Actual amount</th>
-                <th data-field="paid">Paid</th>
-              </tr>
-            </thead>
               <tbody>
                 <tr>
                   <td>{expense.name}</td>
@@ -130,6 +122,16 @@ class Expense extends React.Component {
               <div className='card light-green darken-3'>
                 <div className='card-content white-text'>
                   <h4 className='center'>Expenses</h4>
+                  <table>
+                  <thead>
+                    <tr>
+                      <th data-field="id">Name</th>
+                      <th data-field="name">Estimated Amount</th>
+                      <th data-field="price">Actual amount</th>
+                      <th data-field="paid">Paid</th>
+                    </tr>
+                  </thead>
+                </table>
                   <span>{this.displayCards.bind(this)()}</span>
                   <div className='card-action'>
                     <Link to='/' className='btn'>Budget</Link>
