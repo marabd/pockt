@@ -125,7 +125,7 @@ class Expense extends React.Component {
     } else {
       if(this.state.expense) {
         return(
-          <div className='row'>
+
             <div className='col s12 m6'>
               <div className='card light-green darken-3'>
                 <div className='card-content white-text'>
@@ -139,7 +139,7 @@ class Expense extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+
         )
       } else {
         return(
