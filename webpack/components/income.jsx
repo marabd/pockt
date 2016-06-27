@@ -22,21 +22,21 @@ class Income extends React.Component {
 	}
 
 	toggleAdd() {
-		this.setState({ addView: !this.state.addView });
+		this.setState({ addIncome: !this.state.addView });
 	}
 
-	handleAdd(e) {
+	addIncome(e) {
 		e.preventDefault();
 		let name = this.refs.name.value;
 		let amount = this.refs.amount.value;
-
 		$.ajax({
-			url: `/api/income/${this.state.income.id}`,
-			type: 'PUT',
+			url: 'api/income',
+			type: 'POST',
 			data: { income: { name, amount } },
 			dataType: 'JSON'
 		}).done( income => {
-			this.setState({ income, editView: false });
+			this.props.addIncome(income);
+			this.refs.addForm.reset();
 		}).fail( data => {
 			console.log( data )
 		});
@@ -95,32 +95,47 @@ class Income extends React.Component {
 						</div>
 					</div>
 				</div>
-			)
-		} else {
-			if(this.state.income) {
-				return(
-					<div className='row'>
-						<div className='col s12 m6'>
-							<div className='card light-green darken-3'>
-								<div className='card-content white-text'>
-									<span>{this.displayCards.bind(this)()}</span>
-									<div className='card-action'>
-										<Link to='/' className='btn'>Budget</Link>
-										<button className='btn' onClick={this.toggleEdit}>Edit</button>
-										<button className='btn'>Add Income</button>
-									</div>
+			);
+		} else if(this.state.addView) {
+			return(
+				<div className='col s12 m6'>
+					<div className='card light-green darken-3'>
+						<div className='card-content white-text'>
+							<h4>Add Income:</h4>
+							<form ref='addForm' onSubmit={this.addIncome.bind(this)}>
+								<input ref='name' type='text' placeholder='Name' required />
+								<input ref='amount' type='text' placeholder='Amount' required />
+								<input type='Submit' defaultValue='Add Income' className='btn' />
+								<button type='button' onClick={this.toggleAdd} classname='btn grey'>Cancel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			);
+		} else if(this.state.income) {
+			return(
+				<div className='row'>
+					<div className='col s12 m6'>
+						<div className='card light-green darken-3'>
+							<div className='card-content white-text'>
+								<h4>Income:</h4>
+								<span>{this.displayCards.bind(this)()}</span>
+								<div className='card-action'>
+									<Link to='/' className='btn'>Budget</Link>
+									<button className='btn' onClick={this.toggleEdit}>Edit</button>
+									<button className='btn' onClick={this.toggleAdd}>Add Income</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				)
-			} else {
-				return(
-					<div className='row'>
-						<h3 className='center'>Income Not Loaded...</h3>
-					</div>
-				)
-			}
+				</div>
+			);
+		} else {
+			return(
+				<div className='row'>
+					<h3 className='center'>Income Not Loaded...</h3>
+				</div>
+			);
 		}
 	}
 }
