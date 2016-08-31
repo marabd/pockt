@@ -22,10 +22,10 @@ class Income extends React.Component {
 	}
 
 	toggleAdd() {
-		this.setState({ addIncome: !this.state.addView });
+		this.setState({ handleSubmit: !this.state.addView });
 	}
 
-	addIncome(e) {
+	handleSubmit(e) {
 		e.preventDefault();
 		let name = this.refs.name.value;
 		let amount = this.refs.amount.value;
@@ -35,8 +35,8 @@ class Income extends React.Component {
 			data: { income: { name, amount } },
 			dataType: 'JSON'
 		}).done( income => {
-			this.props.addIncome(income);
-			this.refs.addForm.reset();
+			this.props.handleSubmit(income);
+			this.refs.handleSubmit.reset();
 		}).fail( data => {
 			console.log( data )
 		});
@@ -102,7 +102,7 @@ class Income extends React.Component {
 					<div className='card light-green darken-3'>
 						<div className='card-content white-text'>
 							<h4>Add Income:</h4>
-							<form ref='addForm' onSubmit={this.addIncome.bind(this)}>
+							<form ref='addForm' onSubmit={this.handleSubmit.bind(this)}>
 								<input ref='name' type='text' placeholder='Name' required />
 								<input ref='amount' type='text' placeholder='Amount' required />
 								<input type='Submit' defaultValue='Add Income' className='btn' />
