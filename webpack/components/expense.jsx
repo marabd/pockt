@@ -71,6 +71,7 @@ class Expense extends React.Component {
     return this.state.expense.map( expense => {
       return(
         <div key={`expense-${expense.id}`}>
+<<<<<<< HEAD
           <div className='row valign-wrapper' >
             <table>
               <tbody>
@@ -89,6 +90,29 @@ class Expense extends React.Component {
                 </tr>
               </tbody>
             </table>
+=======
+          <div className='col s12 m6'>
+            <div className='card medium light-green darken-3'>
+              <div className='card-content white-text'>
+                <span className='card-title white-text'>{expense.name}</span>
+                <div>
+                  <label className='white-text'>Estimated Amount:</label>
+                  <p className='white-text'>${expense.est_amount}</p>
+
+                  <label className='white-text'>Actual Amount:</label>
+                  <p className='white-text'>${expense.act_amount}</p>
+
+                  <label className='white-text'>Paid:</label>
+                  <p className='white-text'>{expense.paid}</p>
+                </div>
+                <div className='card-action'>
+                  <Link to='/' className='btn'>Budget</Link>
+                  <button className='btn' onClick={this.toggleEdit}>Edit</button>
+                  <button className='btn'>Add Expense</button>
+                </div>
+              </div>
+            </div>
+>>>>>>> mara
           </div>
         </div>
       )
@@ -103,10 +127,17 @@ class Expense extends React.Component {
             <div className="card-content">
               <h5>Edit Expense: {this.state.expense.name}</h5>
               <form onSubmit={this.handleEdit.bind(this)} >
+<<<<<<< HEAD
                 <input ref='name' type='text' placeholder='Name' defaultValue={this.state.expense.name} />
                 <input ref='est_amount' type='text' placeholder='Estimated Amount' defaultValue={this.state.expense.est_amount} />
                 <input ref='act_amount' type='text' placeholder='Actual Amount' defaultValue={this.state.expense.act_amount} />
                 <input ref='paid' type='text' placeholder='Paid' defaultValue={this.state.expense.paid} />
+=======
+                <input ref='name'type='text' placeholder='Name' defaultValue={this.state.expense.name} />
+                <input ref='est_amount'type='text' placeholder='Estimated Amount' defaultValue={this.state.expense.est_amount} />
+                <input ref='act_amount'type='text' placeholder='Actual Amount' defaultValue={this.state.expense.act_amount} />
+                <input ref='paid'type='text' placeholder='Paid' defaultValue={this.state.expense.paid} />
+>>>>>>> mara
                 <input type='Submit' defaultValue='Update Expense' className='btn' />
                 <button type='button' onClick={this.toggleEdit} className='btn grey'>Cancel</button>
               </form>
